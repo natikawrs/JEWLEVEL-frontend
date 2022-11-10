@@ -1,8 +1,16 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { faMagnifyingGlass, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 function ShopPage() {
+  const { products, wishList, toggleWishList } = useAuth();
+  const navigate = useNavigate();
+
+  const favAction = async (id) => {
+    await toggleWishList(id);
+  };
+
   return (
     <div className="px-16">
       <p className="text-[#5699F5] font-medium text-4xl mt-20">Shop</p>
@@ -20,69 +28,35 @@ function ShopPage() {
             />
           </div>
 
-          <div className="flex gap-5">
-            <div className="mt-10 text-center">
-              <img
-                src="https://i0.wp.com/deardiaryco.com/wp-content/uploads/2022/08/IMG_2245.2-Resized.png?resize=1024%2C1024&ssl=1"
-                className="w-72 h-72"
-              />
-              <Link to="/product" className="text-[#A7C7D7] font-light text-sm">
-                Floral Twine Adjustable Ring
-              </Link>
-              <p className="text-[#A7C7D7] font-light text-sm ">3500 THB</p>
-            </div>
-            <div className="mt-10 text-center">
-              <img
-                src="https://i0.wp.com/deardiaryco.com/wp-content/uploads/2022/08/IMG_2245.2-Resized.png?resize=1024%2C1024&ssl=1"
-                className="w-72 h-72"
-              />
-              <p className="text-[#A7C7D7] font-light text-sm">
-                Floral Twine Adjustable Ring
-              </p>
-              <p className="text-[#A7C7D7] font-light text-sm">3500 THB</p>
-            </div>
-            <div className="mt-10 text-center">
-              <img
-                src="https://i0.wp.com/deardiaryco.com/wp-content/uploads/2022/08/IMG_2245.2-Resized.png?resize=1024%2C1024&ssl=1"
-                className="w-72 h-72"
-              />
-              <p className="text-[#A7C7D7] font-light text-sm">
-                Floral Twine Adjustable Ring
-              </p>
-              <p className="text-[#A7C7D7] font-light text-sm">3500 THB</p>
-            </div>
-          </div>
-          <div className="flex gap-5">
-            <div className="mt-10 text-center">
-              <img
-                src="https://i0.wp.com/deardiaryco.com/wp-content/uploads/2022/08/IMG_2245.2-Resized.png?resize=1024%2C1024&ssl=1"
-                className="w-72 h-72"
-              />
-              <p className="text-[#A7C7D7] font-light text-sm">
-                Floral Twine Adjustable Ring
-              </p>
-              <p className="text-[#A7C7D7] font-light text-sm">3500 THB</p>
-            </div>
-            <div className="mt-10 text-center">
-              <img
-                src="https://i0.wp.com/deardiaryco.com/wp-content/uploads/2022/08/IMG_2245.2-Resized.png?resize=1024%2C1024&ssl=1"
-                className="w-72 h-72"
-              />
-              <p className="text-[#A7C7D7] font-light text-sm">
-                Floral Twine Adjustable Ring
-              </p>
-              <p className="text-[#A7C7D7] font-light text-sm">3500 THB</p>
-            </div>
-            <div className="mt-10 text-center">
-              <img
-                src="https://i0.wp.com/deardiaryco.com/wp-content/uploads/2022/08/IMG_2245.2-Resized.png?resize=1024%2C1024&ssl=1"
-                className="w-72 h-72"
-              />
-              <p className="text-[#A7C7D7] font-light text-sm">
-                Floral Twine Adjustable Ring
-              </p>
-              <p className="text-[#A7C7D7] font-light text-sm">3500 THB</p>
-            </div>
+          <div className="flex flex-wrap gap-5 w-[910px]">
+            {products.map((item) => (
+              <div className="mt-10 text-center">
+                <div className="">
+                  <img
+                    src={item.image1}
+                    className="w-72 h-72  hover:opacity-50 hover:transition-all hover:duration-1000 cursor-pointer absolute"
+                  />
+                  <FontAwesomeIcon
+                    icon={faHeart}
+                    className={` ${
+                      wishList ? "text-[#A7C7D7]" : "text-white"
+                    } scale-150 relative ml-60 mt-5 cursor-pointer`}
+                    onClick={() => favAction(products.id)}
+                  />
+                </div>
+                <div className="mt-64 mx-auto w-72">
+                  <div
+                    className="text-[#A7C7D7] font-light text-sm cursor-pointer mx-auto"
+                    onClick={() => navigate(`/product/${item.id}`)}
+                  >
+                    {item.name}
+                  </div>
+                  <p className="text-[#A7C7D7] font-light text-sm mx-auto">
+                    {item.price} THB
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
         <div className="">

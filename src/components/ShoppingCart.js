@@ -8,17 +8,19 @@ function ShoppingCart({ isOpenShoppingCart, closeShoppingCart }) {
       {/* {isOpenShoppingCart ? ( */}
       <>
         <div
-        // onClick={closeShoppingCart}
-        // className="flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-end  "
+          onClick={closeShoppingCart}
+          className={`flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-end 
+          ${isOpenShoppingCart ? "opacity-100 visible" : "opacity-0 invisible"}
+          transition-all duration-700`}
         >
           <div
             onClick={(e) => e.stopPropagation()}
             className=" relative w-auto   max-w-3xl"
           >
             <div
-              className={`cart min-w-[400px] min-h-[730px] shadow-sm relative flex flex-col bg-white outline-none focus:outline-none px-10 ${
-                isOpenShoppingCart ? "visible" : "invisible"
-              }`}
+              className={` min-w-[400px] min-h-[730px] shadow-sm relative ${
+                isOpenShoppingCart ? "left-0" : "left-[700px]"
+              } flex flex-col bg-white outline-none focus:outline-none px-10 transition-all duration-500`}
             >
               <div className="flex mt-5">
                 <p className="text-start text-[#A7C7D7] font-medium text-2xl w-96 ">
@@ -84,7 +86,12 @@ function ShoppingCart({ isOpenShoppingCart, closeShoppingCart }) {
             </div>
           </div>
         </div>
-        {/* <div className="opacity-50 fixed inset-0 z-40 bg-black"></div> */}
+        <div
+          className={`    ${
+            isOpenShoppingCart ? "visible" : "invisible"
+          } fixed inset-0 z-40 bg-black opacity-50
+          `}
+        ></div>
       </>
       {/* ) : null} */}
     </>

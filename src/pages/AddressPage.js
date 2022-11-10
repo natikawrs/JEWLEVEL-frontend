@@ -3,15 +3,15 @@ import React from "react";
 function AddressPage() {
   return (
     <div className="pr-16 pl-[300px] mt-[-450px] w-[850px]">
-      <div className="flex w-[850px]">
+      {/* <div className="flex w-[850px]">
         <div className="text-[#A7C7D7] font-normal text-base mt-10">
           FIRST NAME *
         </div>
         <div className="text-[#A7C7D7] font-normal text-base mt-10 mx-auto">
           LAST NAME *
         </div>
-      </div>
-      <div className=" flex w-[850px]">
+      </div> */}
+      {/* <div className=" flex w-[850px]">
         <input
           className="w-[400px] h-[50px] rounded-[5px] pl-[20px] text-[#A7C7D7] border-solid border-[#A7C7D7] border-[1px] mt-3 text-sm"
           name="firstname"
@@ -22,7 +22,7 @@ function AddressPage() {
           name="lastname"
           type="text"
         />
-      </div>
+      </div> */}
       <div className="text-[#A7C7D7] font-normal text-base mt-10 mx-auto">
         ADDRESS DETAILS *
       </div>

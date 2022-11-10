@@ -39,26 +39,52 @@ function HomePage() {
       >
         <SwiperSlide>
           <div className="h-[600px] w-[1700px] overflow-hidden">
-            <img src={cover1} className="" />
+            <img
+              src={cover1}
+              className="object-cover top-[300px] w-full h-full"
+            />
           </div>
         </SwiperSlide>
         <SwiperSlide>
           <div className="h-[600px] w-[1700px] overflow-hidden">
-            <img src={cover2} />
+            <img
+              src={cover2}
+              className=" object-cover top-[300px] w-full h-full"
+            />
           </div>
         </SwiperSlide>
         <SwiperSlide>
           <div className="h-[600px] w-[1700px] overflow-hidden">
-            <img src={cover3} />
+            <img src={cover3} className=" object-cover w-full h-full" />
           </div>
         </SwiperSlide>
       </Swiper>
 
       <div className="flex justify-around mt-40  gap-10 px-16">
-        <img className="w-64 h-60" src={earring} />
-        <img className="w-64 h-60" src={necklace} />
-        <img className="w-64 h-60" src={rings} />
-        <img className="w-64 h-60" src={wristwear} />
+        <div className="w-64 h-60 overflow-hidden">
+          <img
+            className="w-100 h-100 hover:scale-125 transition-all  duration-1000 cursor-pointer"
+            src={earring}
+          />
+        </div>
+        <div className="w-64 h-60 overflow-hidden">
+          <img
+            className="w-100 h-100 hover:scale-125 transition-all  duration-1000 cursor-pointer"
+            src={necklace}
+          />
+        </div>
+        <div className="w-64 h-60 overflow-hidden">
+          <img
+            className="w-100 h-100 hover:scale-125 transition-all  duration-1000 cursor-pointer"
+            src={rings}
+          />
+        </div>
+        <div className="w-64 h-60 overflow-hidden">
+          <img
+            className="w-100 h-100 hover:scale-125 transition-all  duration-1000 cursor-pointer"
+            src={wristwear}
+          />
+        </div>
       </div>
 
       <p className="mt-20 text-center text-[#A7C7D7] font-medium text-2xl">
@@ -130,9 +156,24 @@ function HomePage() {
       </p>
       <img className="mx-auto mt-10" src={ribbon} />
       <div className="flex my-20  px-16 gap-5">
-        <img className="w-96 h-[450px]" src={blog1} />
-        <img className="w-96 h-[450px]" src={blog2} />
-        <img className="w-96 h-[450px]" src={blog3} />
+        <div className="w-96 h-[450px] overflow-hidden ">
+          <img
+            className="w-96 h-[450px] hover:scale-125 transition-all  duration-1000 cursor-pointer"
+            src={blog1}
+          />
+        </div>
+        <div className="w-96 h-[450px] overflow-hidden">
+          <img
+            className="w-96 h-[450px] hover:scale-125 transition-all  duration-1000 cursor-pointer"
+            src={blog2}
+          />
+        </div>
+        <div className="w-96 h-[450px] overflow-hidden">
+          <img
+            className="w-96 h-[450px] hover:scale-125 transition-all  duration-1000 cursor-pointer"
+            src={blog3}
+          />
+        </div>
       </div>
       <img className="mx-auto mt-20" src={ribbon} />
       <div className=" flex justify-center gap-10 mb-20 mt-10 ">

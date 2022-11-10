@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Container from "./container/Container";
 import { Link } from "react-router-dom";
 import FooterLayout from "./FooterLayout";
@@ -13,8 +13,10 @@ import {
 import Chatbox from "../components/Chatbox";
 import { useState } from "react";
 import ShoppingCart from "../components/ShoppingCart";
+import { useAuth } from "../contexts/AuthContext";
 
 function NavLayout() {
+  const { user } = useAuth();
   const [showChat, setShowChat] = useState(false);
   const openChat = () => {
     setShowChat(true);
@@ -33,31 +35,36 @@ function NavLayout() {
     setIsOpenShoppingCart(false);
   };
 
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="mt-3 ">
         <div className="flex gap-10 px-16">
-          {/* <Link to="/"> */}
-          <img src={logofont} className="w-60 h-14" />
-          {/* </Link> */}
-
-          <Link to="/" className="text-[#A7C7D7] font-normal  my-auto">
-            HOME
-          </Link>
-          <Link className="text-[#A7C7D7] font-normal my-auto" to="/shop">
-            SHOP ALL
-          </Link>
-          <Link
-            className="text-[#A7C7D7] font-normal my-auto"
-            to="/authentication"
-          >
-            LOGIN / REGISTER
-          </Link>
-          <Link className="text-[#A7C7D7] font-normal my-auto" to="/contact">
-            CONTACT US
-          </Link>
-          <div className="flex gap-10 mx-[270px]  my-auto ">
-            <Link to="/my-account">
+          <img
+            src={logofont}
+            className="w-60 h-14 cursor-pointer"
+            onClick={() => navigate("/")}
+          />
+          <div className="flex  justify-start gap-10 grow">
+            <Link to="/" className="text-[#A7C7D7] font-normal  my-auto">
+              HOME
+            </Link>
+            <Link className="text-[#A7C7D7] font-normal my-auto " to="/shop">
+              SHOP ALL
+            </Link>
+            {/* <Link
+              className="text-[#A7C7D7] font-normal my-auto"
+              to="/authentication"
+            >
+              LOGIN / REGISTER
+            </Link> */}
+            <Link className="text-[#A7C7D7] font-normal my-auto" to="/contact">
+              CONTACT US
+            </Link>
+          </div>
+          <div className="flex gap-10  my-auto ">
+            <Link to={`${user ? "/my-account/orders" : "/authentication"}`}>
               <FontAwesomeIcon
                 icon={faUser}
                 className=" text-[#A7C7D7] scale-125"

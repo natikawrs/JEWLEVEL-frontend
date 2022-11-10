@@ -1,7 +1,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import * as productService from "../api/productApi";
+import { useState } from "react";
 
 function WishlistPage() {
+  const [wishList, setWishList] = useState(null);
+  const fetchWishList = async () => {
+    try {
+      const res = await productService.getUserWishList();
+      setWishList(res.data.findWishListByUser);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  console.log(wishList);
   return (
     <div className="px-16">
       <p className="text-[#5699F5] font-medium text-4xl my-20">My Wishlist </p>

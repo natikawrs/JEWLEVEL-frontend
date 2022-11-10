@@ -6,7 +6,7 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper";
 
-function ProductPics() {
+function ProductPics({ product }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   return (
     <>
@@ -19,20 +19,26 @@ function ProductPics() {
         navigation={true}
         thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiper2  w-[1200px] h-[600px]"
+        className="mySwiper2  w-[500px] h-[550px]"
       >
         <SwiperSlide>
-          <img src="https://i2.wp.com/deardiaryco.com/wp-content/uploads/2022/01/Aspida-1.jpg?fit=2048%2C2048&ssl=1" />
+          <img src={product.image1} />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="https://i0.wp.com/deardiaryco.com/wp-content/uploads/2022/01/Aspida-2.jpg?fit=2048%2C2048&ssl=1" />
+          <img src={product.image2} />
         </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://i0.wp.com/deardiaryco.com/wp-content/uploads/2022/01/Aspida-3.jpg?fit=2048%2C2048&ssl=1" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://i0.wp.com/deardiaryco.com/wp-content/uploads/2022/01/Aspida-4.jpg?fit=2048%2C2048&ssl=1" />
-        </SwiperSlide>
+
+        {product.image3 ? (
+          <SwiperSlide>
+            <img src={product.image3} />
+          </SwiperSlide>
+        ) : null}
+
+        {product.image4 ? (
+          <SwiperSlide>
+            <img src={product.image4} />
+          </SwiperSlide>
+        ) : null}
       </Swiper>
       <Swiper
         onSwiper={setThumbsSwiper}
@@ -41,19 +47,19 @@ function ProductPics() {
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiper mt-[650px] w-96"
+        className="mySwiper w-96"
       >
         <SwiperSlide>
-          <img src="https://i2.wp.com/deardiaryco.com/wp-content/uploads/2022/01/Aspida-1.jpg?fit=2048%2C2048&ssl=1" />
+          <img src={product.image1} />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="https://i0.wp.com/deardiaryco.com/wp-content/uploads/2022/01/Aspida-2.jpg?fit=2048%2C2048&ssl=1" />
+          <img src={product.image2} />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="https://i0.wp.com/deardiaryco.com/wp-content/uploads/2022/01/Aspida-3.jpg?fit=2048%2C2048&ssl=1" />
+          <img src={product.image3} />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="https://i0.wp.com/deardiaryco.com/wp-content/uploads/2022/01/Aspida-4.jpg?fit=2048%2C2048&ssl=1" />
+          <img src={product.image4} />
         </SwiperSlide>
       </Swiper>
     </>
