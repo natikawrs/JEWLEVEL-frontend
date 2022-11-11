@@ -7,6 +7,7 @@ import * as productService from "../api/productApi";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useCart } from "../contexts/CartContext";
 
 function ProductPage() {
   const [product, setProduct] = useState([]);
@@ -24,10 +25,20 @@ function ProductPage() {
     fetchProduct();
   }, [productId]);
 
-  const { wishList, toggleWishList } = useAuth(null);
+  const { wishList, toggleWishList } = useAuth();
 
   const favAction = async () => {
     await toggleWishList(product?.id);
+  };
+
+  const wishListed = wishList?.map((product) => product?.productId);
+
+  const { addItemToCart } = useCart();
+
+  const [quantity, setQuantity] = useState(1);
+
+  const handleAddTocart = () => {
+    addItemToCart(productId, quantity);
   };
 
   return (
@@ -46,24 +57,35 @@ function ProductPage() {
           <p className="text-[#A7C7D7] text-xl mt-7">DESCRIPTION</p>
           <p className="text-[#A7C7D7] text-base mt-3">{product.description}</p>
           <div className="flex mt-10">
-            <button className="border-solid border-[#A7C7D7] text-[#A7C7D7] border-y-[3px] border-l-[3px] w-10 h-10">
+            <button
+              className="border-solid border-[#A7C7D7] text-[#A7C7D7] border-y-[3px] border-l-[3px] w-10 h-10"
+              onClick={() => setQuantity((prev) => (prev === 1 ? 1 : prev - 1))}
+            >
               -
             </button>
             <button className="border-solid border-[#A7C7D7] text-[#A7C7D7] border-y-[3px] w-10 h-10">
-              7
+              {quantity}
             </button>
-            <button className="border-solid border-[#A7C7D7] text-[#A7C7D7] border-y-[3px] border-r-[3px] w-10 h-10">
+            <button
+              className="border-solid border-[#A7C7D7] text-[#A7C7D7] border-y-[3px] border-r-[3px] w-10 h-10"
+              onClick={() => setQuantity((prev) => prev + 1)}
+            >
               +
             </button>
-            <button className="border-solid border-[#A7C7D7] text-[#A7C7D7] text-xs border-[3px] w-36 h-10 ml-3">
+            <button
+              className="border-solid border-[#A7C7D7] text-[#A7C7D7] text-xs border-[3px] w-36 h-10 ml-3"
+              onClick={handleAddTocart}
+            >
               ADD TO CART
             </button>
             <button className="border-solid border-[#A7C7D7] text-[#A7C7D7] border-[3px] w-10 h-10 ml-3">
               <FontAwesomeIcon
                 icon={faHeart}
                 className={` ${
-                  wishList ? "text-[#5699F5]" : "text-[#A7C7D7]"
-                } scale-100"`}
+                  wishListed.includes(product.id)
+                    ? "text-[#A7C7D7]"
+                    : "text-[#E2E3E4]"
+                } scale-125`}
                 onClick={favAction}
               />
             </button>

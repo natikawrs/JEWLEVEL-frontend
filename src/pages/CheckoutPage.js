@@ -1,6 +1,83 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
+import { useCart } from "../contexts/CartContext";
+import * as orderService from "../api/orderApi";
 
 function CheckoutPage() {
+  const { user } = useAuth();
+  useEffect(() => {
+    setInput({
+      ...input,
+      firstName: user?.firstName,
+      lastName: user?.lastName,
+      address: user?.address,
+      street: user?.street,
+      subDistrict: user?.subDistrict,
+      district: user?.district,
+      city: user?.city,
+      zipcode: user?.zipcode,
+      country: user?.country,
+      cardNumber: user?.cardNumber,
+      expiredDate: user?.expiredDate,
+      cvc: user?.cvc,
+      subTotal: 0
+    });
+  }, [user]);
+
+  // console.log(user);
+  const [input, setInput] = useState({
+    firstName: user?.firstName || "",
+    lastName: user?.lastName || "",
+    address: user?.address || "",
+    street: user?.street || "",
+    subDistrict: user?.subDistrict || "",
+    district: user?.district || "",
+    city: user?.city || "",
+    zipcode: user?.zipcode || "",
+    country: user?.country || "",
+    cardNumber: user?.cardNumber || "",
+    expiredDate: user?.expiredDate || "",
+    cvc: user?.cvc || "",
+    subTotal: 0
+  });
+
+  const handleChangeInput = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
+
+  const { cartItems, totalPrice } = useCart();
+  console.log(cartItems);
+  console.log(totalPrice);
+
+  useEffect(() => {
+    setArriteminfo(
+      cartItems.map((item) => ({
+        ...item,
+        totalPrice: item.quantity * item.Product.price
+      }))
+    );
+  }, [cartItems]);
+
+  const [arriteminfo, setArriteminfo] = useState([
+    {
+      quantity: cartItems?.quantity,
+      totalPrice: totalPrice,
+      productId: cartItems?.productId
+    }
+  ]);
+
+  const handleCreateOrder = async () => {
+    // console.log("5555555");
+    try {
+      console.log(arriteminfo);
+      await orderService.createOrder(input, arriteminfo);
+      console.log("tessss");
+    } catch (err) {
+      console.log("object");
+      console.log(err);
+    }
+  };
+
   return (
     <div className="px-16">
       <p className="text-[#5699F5] font-medium text-4xl mt-20">Check out</p>
@@ -8,7 +85,7 @@ function CheckoutPage() {
         <div className=" text-[#A7C7D7] font-medium text-2xl">
           Shipping Address
           <div className="flex  w-[500px] ">
-            <div className="text-[#A7C7D7] font-normal text-base mt-10">
+            <div className="text-[#A7C7D7] font-normal text-base mt-10 w-36">
               FIRST NAME *
             </div>
             <div className="text-[#A7C7D7] font-normal text-base mt-10 mx-auto">
@@ -18,13 +95,17 @@ function CheckoutPage() {
           <div className=" flex w-[500px] gap-5">
             <input
               className="w-[247px] h-[50px] rounded-[5px] pl-[20px] text-[#A7C7D7] border-solid border-[#A7C7D7] border-[1px] mt-3 text-sm"
-              name="firstname"
+              name="firstName"
               type="text"
+              value={input.firstName}
+              onChange={handleChangeInput}
             />
             <input
               className="w-[248px] h-[50px] rounded-[5px] pl-[20px] text-[#A7C7D7] border-solid border-[#A7C7D7] border-[1px] mt-3 text-sm mx-auto"
-              name="lastname"
+              name="lastName"
               type="text"
+              value={input.lastName}
+              onChange={handleChangeInput}
             />
           </div>
           <div className="text-[#A7C7D7] font-normal text-base mt-10 mx-auto">
@@ -32,19 +113,23 @@ function CheckoutPage() {
           </div>
           <input
             className="w-[500px] h-[50px] rounded-[5px] pl-[20px] text-[#A7C7D7] border-solid border-[#A7C7D7] border-[1px] mt-3 text-sm mx-auto"
-            name="addressDetails"
+            name="address"
             type="text"
+            value={input.address}
+            onChange={handleChangeInput}
           />
           <div className="text-[#A7C7D7] font-normal text-base mt-10 mx-auto">
             STREET DETAILS *
           </div>
           <input
             className="w-[500px] h-[50px] rounded-[5px] pl-[20px] text-[#A7C7D7] border-solid border-[#A7C7D7] border-[1px] mt-3 text-sm mx-auto"
-            name="streetDetails"
+            name="street"
             type="text"
+            value={input.street}
+            onChange={handleChangeInput}
           />
           <div className="flex w-[500px]">
-            <div className="text-[#A7C7D7] font-normal text-base mt-10">
+            <div className="text-[#A7C7D7] font-normal text-base mt-10 w-36">
               SUB - DISTRICT *
             </div>
             <div className="text-[#A7C7D7] font-normal text-base mt-10 mx-auto">
@@ -56,15 +141,19 @@ function CheckoutPage() {
               className="w-[247px] h-[50px] rounded-[5px] pl-[20px] text-[#A7C7D7] border-solid border-[#A7C7D7] border-[1px] mt-3 text-sm"
               name="subDistrict"
               type="text"
+              value={input.subDistrict}
+              onChange={handleChangeInput}
             />
             <input
               className="w-[248px] h-[50px] rounded-[5px] pl-[20px] text-[#A7C7D7] border-solid border-[#A7C7D7] border-[1px] mt-3 text-sm mx-auto"
               name="district"
               type="text"
+              value={input.district}
+              onChange={handleChangeInput}
             />
           </div>
           <div className="flex w-[500px]">
-            <div className="text-[#A7C7D7] font-normal text-base mt-10">
+            <div className="text-[#A7C7D7] font-normal text-base mt-10 w-36">
               CITY *
             </div>
             <div className="text-[#A7C7D7] font-normal text-base mt-10 mx-auto">
@@ -74,13 +163,17 @@ function CheckoutPage() {
           <div className=" flex w-[500px] gap-5">
             <input
               className="w-[247px] h-[50px] rounded-[5px] pl-[20px] text-[#A7C7D7] border-solid border-[#A7C7D7] border-[1px] mt-3 text-sm"
-              name="zipcode"
+              name="city"
               type="text"
+              value={input.city}
+              onChange={handleChangeInput}
             />
             <input
               className="w-[248px] h-[50px] rounded-[5px] pl-[20px] text-[#A7C7D7] border-solid border-[#A7C7D7] border-[1px] mt-3 text-sm mx-auto"
-              name="city"
+              name="zipcode"
               type="text"
+              value={input.zipcode}
+              onChange={handleChangeInput}
             />
           </div>
           <div className="text-[#A7C7D7] font-normal text-base mt-10 mx-auto">
@@ -90,6 +183,8 @@ function CheckoutPage() {
             className="w-[500px] h-[50px] rounded-[5px] pl-[20px] text-[#A7C7D7] border-solid border-[#A7C7D7] border-[1px] mt-3 text-sm mx-auto"
             name="country"
             type="text"
+            value={input.country}
+            onChange={handleChangeInput}
           />
         </div>
         <div className="mx-auto  text-[#A7C7D7] font-medium text-2xl">
@@ -101,20 +196,19 @@ function CheckoutPage() {
                 SUBTOTAL
               </span>
             </div>
-            <div className=" flex w-[500px] h-[60px] pl-[20px]  text-white border-solid bg-[#A7C7D7] border-[1px] text-sm  my-auto">
-              <span className="my-auto font-medium text-base">
-                Astri Ear Studs × 1
-              </span>
-              <span className="mx-auto my-auto font-medium text-base">
-                6000 THB
-              </span>
-            </div>
-            <div className=" flex w-[500px] h-[60px] pl-[20px]  text-white border-solid bg-[#A7C7D7] border-[1px] text-sm  my-auto">
-              <span className="my-auto font-medium text-base"> SUBTOTAL</span>
-              <span className="ml-48 my-auto font-medium text-base">
-                6000 THB
-              </span>
-            </div>
+
+            {cartItems.map((item) => (
+              <div className=" flex w-[500px] h-[60px] pl-[20px]  text-white border-solid bg-white border-[1px] text-sm  my-auto">
+                <span className="my-auto font-medium text-base text-[#A7C7D7] flex">
+                  <div className="w-60">{item.Product.name} </div>×&nbsp;
+                  <div>{item.quantity}</div>
+                </span>
+                <span className="mx-auto my-auto font-medium text-base text-[#A7C7D7]">
+                  {item?.quantity * item.Product?.price}&nbsp;THB
+                </span>
+              </div>
+            ))}
+
             <div className=" flex w-[500px] h-[60px] pl-[20px]  text-white border-solid bg-[#A7C7D7] border-[1px] text-sm  my-auto">
               <span className="my-auto font-medium text-base">SHIPPING</span>
               <span className="ml-48 my-auto font-medium text-base">
@@ -124,7 +218,7 @@ function CheckoutPage() {
             <div className=" flex w-[500px] h-[60px] pl-[20px]  text-white border-solid bg-[#A7C7D7] border-[1px] text-sm my-auto">
               <span className="my-auto font-medium text-base">TOTAL</span>
               <span className="ml-56 my-auto font-medium text-base ">
-                6000 THB
+                {totalPrice}&nbsp;THB
               </span>
             </div>
 
@@ -151,15 +245,19 @@ function CheckoutPage() {
               name="cardNumber"
               type="text"
               placeholder="1234 1234 1234 1234"
+              value={input.cardNumber}
+              onChange={handleChangeInput}
             />
             <p className="text-[#A7C7D7] font-normal text-base mt-10">
               EXPIRY DATE *
             </p>
             <input
               className="w-[500px] h-[50px] rounded-[5px] pl-[20px] text-[#A7C7D7] border-solid border-[#A7C7D7] border-[1px] mt-3 text-sm"
-              name="expiryDate"
+              name="expiredDate"
               type="text"
               placeholder="MM / YY"
+              value={input.expiredDate}
+              onChange={handleChangeInput}
             />
             <p className="text-[#A7C7D7] font-normal text-base mt-10">
               CARD CODE (CVC) *
@@ -169,6 +267,8 @@ function CheckoutPage() {
               name="cvc"
               type="text"
               placeholder="CVC"
+              value={input.cvc}
+              onChange={handleChangeInput}
             />
             <div className="flex gap-2 my-5">
               <input type="checkbox" name="remember" />
@@ -178,7 +278,10 @@ function CheckoutPage() {
               </label>
             </div>
 
-            <button className="mt-5 mb-20 bg-[#5699F5] text-white w-[500px] h-12 text-lg">
+            <button
+              className="mt-5 mb-20 bg-[#5699F5] text-white w-[500px] h-12 text-lg"
+              onClick={handleCreateOrder}
+            >
               PLACE ORDER
             </button>
           </div>

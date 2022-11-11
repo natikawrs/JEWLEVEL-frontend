@@ -2,14 +2,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { useEffect } from "react";
 
 function ShopPage() {
-  const { products, wishList, toggleWishList } = useAuth();
+  const { products, wishList, toggleWishList, fetchWishList } = useAuth();
   const navigate = useNavigate();
-
   const favAction = async (id) => {
     await toggleWishList(id);
   };
+
+  const wishListed = wishList?.map((product) => product?.productId);
 
   return (
     <div className="px-16">
@@ -39,9 +41,11 @@ function ShopPage() {
                   <FontAwesomeIcon
                     icon={faHeart}
                     className={` ${
-                      wishList ? "text-[#A7C7D7]" : "text-white"
+                      wishListed.includes(item.id)
+                        ? "text-[#A7C7D7]"
+                        : "text-white"
                     } scale-150 relative ml-60 mt-5 cursor-pointer`}
-                    onClick={() => favAction(products.id)}
+                    onClick={() => favAction(item.id)}
                   />
                 </div>
                 <div className="mt-64 mx-auto w-72">

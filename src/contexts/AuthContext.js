@@ -105,7 +105,7 @@ function AuthContextProvider({ children }) {
   //   };
   //   fetchPost();
   // }, [id]);
-  const [wishList, setWishList] = useState(null);
+  const [wishList, setWishList] = useState([]);
 
   const fetchWishList = async () => {
     try {
@@ -115,6 +115,10 @@ function AuthContextProvider({ children }) {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    fetchWishList();
+  }, []);
 
   const toggleWishList = async (productId) => {
     const res = await productService.toggleWishList(productId);
@@ -131,7 +135,8 @@ function AuthContextProvider({ children }) {
         products,
         toggleWishList,
         wishList,
-        fetchWishList
+        fetchWishList,
+        setWishList
       }}
     >
       {children}

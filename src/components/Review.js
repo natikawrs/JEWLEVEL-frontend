@@ -110,7 +110,7 @@ function Review() {
             onMouseOver={() => handleMouseHover(index + 1)}
             onMouseLeave={handleMouseLeave}
             className={`cursor-pointer text-[30px] text-${
-              (hoverValue || currentValue) > index ? "[#5699F5]" : "[#A7C7D7]"
+              (hoverValue || currentValue) > index ? "[#A7C7D7]" : "[#E2E3E4]"
             }   
             `}
             icon={faStar}

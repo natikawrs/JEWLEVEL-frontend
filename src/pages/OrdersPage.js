@@ -2,6 +2,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTruckFast } from "@fortawesome/free-solid-svg-icons";
 
 function OrdersPage() {
+  // useEffect(() => {
+  //   const fetchOrder = async () => {
+  //     try {
+  //       if (getAccessToken()) {
+  //         await getMe();
+  //         navigate(location.pathname);
+  //       }
+  //     } catch (err) {
+  //       console.log(err);
+  //     } finally {
+  //     }
+  //   };
+
+  //   fetchOrder();
+  // }, []);
+
   return (
     <div className="pr-16 pl-[300px] mt-[-450px] w-[850px] min-h-[500px]">
       <div className="flex mb-10 justify-evenly border-b-2 pb-5 w-[700px]">

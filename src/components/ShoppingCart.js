@@ -1,11 +1,19 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useCart } from "../contexts/CartContext";
 
 function ShoppingCart({ isOpenShoppingCart, closeShoppingCart }) {
+  const { cartItems, deleteCartItem, totalPrice } = useCart();
+  const navigate = useNavigate();
+  // onClick={() => navigate(`/product/${item.id}`)}
+  // const handleClickLink = () => {
+  //   navigate(`/product/${cartItems?.Product?.id}`);
+  //   closeShoppingCart();
+  // };
+
   return (
     <>
-      {/* {isOpenShoppingCart ? ( */}
       <>
         <div
           onClick={closeShoppingCart}
@@ -31,48 +39,46 @@ function ShoppingCart({ isOpenShoppingCart, closeShoppingCart }) {
                 </button>
               </div>
 
-              <div className="flex mt-5 border-t-2 pt-5">
-                <img
-                  src="https://i2.wp.com/deardiaryco.com/wp-content/uploads/2022/06/Astri-Studs.png?resize=1022%2C1024&ssl=1"
-                  className="w-24 h-24 mr-5"
-                />
-                <div className="text-sm text-[#A7C7D7]">
-                  <p>
-                    <span className="">ASTRI EAR STUDS</span>
-                  </p>
-                  <p className="mt-1">2 x 6000 THB</p>
+              {cartItems.map((item) => (
+                <div className="flex mt-5 border-t-2 pt-5 justify-evenly">
+                  <FontAwesomeIcon
+                    icon={faXmark}
+                    className=" text-[#A7C7D7] scale-125 my-auto cursor-pointer"
+                    onClick={() => deleteCartItem(item.id)}
+                  />
+                  <img
+                    src={item.Product.image1}
+                    className="w-24 h-24 cursor-pointer"
+                    onClick={() => {
+                      navigate(`/product/${item.Product.id}`);
+                      closeShoppingCart();
+                    }}
+                  />
+                  <div className="text-sm text-[#A7C7D7] w-48">
+                    <p>
+                      <span
+                        className="cursor-pointer"
+                        onClick={() => {
+                          navigate(`/product/${item.Product.id}`);
+                          closeShoppingCart();
+                        }}
+                      >
+                        {item?.Product.name}
+                      </span>
+                    </p>
+                    <p className="mt-1">
+                      {item?.quantity} x {item.Product?.price} ={" "}
+                      {item?.quantity * item.Product?.price}&nbsp;THB
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="flex mt-5 border-t-2 pt-5">
-                <img
-                  src="https://i2.wp.com/deardiaryco.com/wp-content/uploads/2022/06/Astri-Studs.png?resize=1022%2C1024&ssl=1"
-                  className="w-24 h-24 mr-5"
-                />
-                <div className="text-sm text-[#A7C7D7]">
-                  <p>
-                    <span className="">ASTRI EAR STUDS</span>
-                  </p>
-                  <p className="mt-1">2 x 6000 THB</p>
-                </div>
-              </div>
-              <div className="flex mt-5 border-t-2 pt-5">
-                <img
-                  src="https://i2.wp.com/deardiaryco.com/wp-content/uploads/2022/06/Astri-Studs.png?resize=1022%2C1024&ssl=1"
-                  className="w-24 h-24 mr-5"
-                />
-                <div className="text-sm text-[#A7C7D7]">
-                  <p>
-                    <span className="">ASTRI EAR STUDS</span>
-                  </p>
-                  <p className="mt-1">2 x 6000 THB</p>
-                </div>
-              </div>
+              ))}
               <div className="flex justify-between  border-b-2 py-5 mt-5">
                 <p className=" text-[#A7C7D7] font-medium text-lg ">
                   SUBTOTAL :
                 </p>
                 <p className=" text-[#A7C7D7] font-medium text-lg  ">
-                  50000 THB
+                  {totalPrice}&nbsp;THB
                 </p>
               </div>
 
@@ -93,7 +99,6 @@ function ShoppingCart({ isOpenShoppingCart, closeShoppingCart }) {
           `}
         ></div>
       </>
-      {/* ) : null} */}
     </>
   );
 }
