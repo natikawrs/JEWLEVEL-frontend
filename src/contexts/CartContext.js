@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import * as cartService from "../api/cartApi";
 import { useAuth } from "./AuthContext";
+import { getAccessToken } from "../utils/localStorage";
 
 const CartContext = createContext();
 
@@ -12,14 +13,16 @@ function CartContextProvider({ children }) {
   useEffect(() => {
     const fetchPriceCart = async () => {
       try {
-        await getPrice();
-        await getCart();
+        if (getAccessToken()) {
+          await getPrice();
+          await getCart();
+        }
       } catch (err) {
         console.log(err);
       }
     };
     fetchPriceCart();
-  }, [user]);
+  }, [cartItems]);
 
   const getPrice = async () => {
     try {
@@ -34,12 +37,12 @@ function CartContextProvider({ children }) {
     try {
       // console.log(productId);
       // console.log(quantity);
-      cartItems.forEach((item) => {
-        if (item.productId === productId) {
-          //   console.log(item.productId);
-          throw new Error();
-        }
-      });
+      // cartItems.forEach((item) => {
+      //   if (item.productId === productId) {
+      //     //   console.log(item.productId);
+      //     throw new Error();
+      //   }
+      // });
       const res = await cartService.createCartApi(productId, quantity);
       setCartItems((prev) => [...prev, res.data.JoinCartData]);
     } catch (err) {
@@ -50,7 +53,7 @@ function CartContextProvider({ children }) {
   const getCart = async () => {
     const res = await cartService.getCartApi();
     if (res.data.JoinCartData) {
-      console.log(res.data.JoinCartData);
+      // console.log(res.data.JoinCartData);
       setCartItems([...res.data.JoinCartData]);
     }
   };
@@ -71,6 +74,7 @@ function CartContextProvider({ children }) {
   //     console.log(err);
   //   }
   // }, []);
+
   return (
     <CartContext.Provider
       value={{
@@ -80,7 +84,7 @@ function CartContextProvider({ children }) {
         getCart,
         deleteCartItem,
         updateCart,
-        getPrice,
+        // getPrice,
         totalPrice
       }}
     >

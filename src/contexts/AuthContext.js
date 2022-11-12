@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as authService from "../api/authApi";
 import * as productService from "../api/productApi";
+import * as userService from "../api/userApi";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 // import * as userService from "../api/userApi";
@@ -23,6 +24,7 @@ function AuthContextProvider({ children }) {
       try {
         if (getAccessToken()) {
           await getMe();
+          fetchWishList();
           navigate(location.pathname);
         }
       } catch (err) {
@@ -56,10 +58,10 @@ function AuthContextProvider({ children }) {
     removeAccessToken();
   };
 
-  //   const updateUser = async (input) => {
-  //     const res = await userService.updateUser(input);
-  //     setUser(res.data.user);
-  //   };
+  const updateUser = async (input) => {
+    const res = await userService.updateUser(input);
+    setUser(res.data.user);
+  };
 
   const [products, setProducts] = useState([]);
 
@@ -116,9 +118,9 @@ function AuthContextProvider({ children }) {
     }
   };
 
-  useEffect(() => {
-    fetchWishList();
-  }, []);
+  // useEffect(() => {
+  //   fetchWishList();
+  // }, []);
 
   const toggleWishList = async (productId) => {
     const res = await productService.toggleWishList(productId);
@@ -136,7 +138,8 @@ function AuthContextProvider({ children }) {
         toggleWishList,
         wishList,
         fetchWishList,
-        setWishList
+        setWishList,
+        updateUser
       }}
     >
       {children}

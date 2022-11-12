@@ -19,14 +19,17 @@ function ProductPics({ product }) {
         navigation={true}
         thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiper2  w-[500px] h-[550px]"
+        className="mySwiper2  w-[500px] h-[550px] overflow-hidden"
       >
         <SwiperSlide>
           <img src={product.image1} />
         </SwiperSlide>
-        <SwiperSlide>
-          <img src={product.image2} />
-        </SwiperSlide>
+
+        {product.image2 ? (
+          <SwiperSlide>
+            <img src={product.image2} />
+          </SwiperSlide>
+        ) : null}
 
         {product.image3 ? (
           <SwiperSlide>
@@ -47,7 +50,7 @@ function ProductPics({ product }) {
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiper w-96"
+        className="mySwiper w-96 overflow-hidden"
       >
         <SwiperSlide>
           <img src={product.image1} />

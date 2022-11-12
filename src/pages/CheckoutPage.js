@@ -2,9 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useCart } from "../contexts/CartContext";
 import * as orderService from "../api/orderApi";
+import * as cartService from "../api/cartApi";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function CheckoutPage() {
   const { user } = useAuth();
+  const navigate = useNavigate();
+  // const { cartItems, totalPrice } = useCart();
   useEffect(() => {
     setInput({
       ...input,
@@ -20,11 +25,10 @@ function CheckoutPage() {
       cardNumber: user?.cardNumber,
       expiredDate: user?.expiredDate,
       cvc: user?.cvc,
-      subTotal: 0
+      subTotal: totalPrice
     });
   }, [user]);
 
-  // console.log(user);
   const [input, setInput] = useState({
     firstName: user?.firstName || "",
     lastName: user?.lastName || "",
@@ -46,14 +50,11 @@ function CheckoutPage() {
   };
 
   const { cartItems, totalPrice } = useCart();
-  console.log(cartItems);
-  console.log(totalPrice);
-
   useEffect(() => {
     setArriteminfo(
       cartItems.map((item) => ({
         ...item,
-        totalPrice: item.quantity * item.Product.price
+        totalPrice: item?.quantity * item?.Product.price
       }))
     );
   }, [cartItems]);
@@ -67,13 +68,12 @@ function CheckoutPage() {
   ]);
 
   const handleCreateOrder = async () => {
-    // console.log("5555555");
     try {
-      console.log(arriteminfo);
       await orderService.createOrder(input, arriteminfo);
-      console.log("tessss");
+      cartService.clearCartApi();
+      toast.success("Your Order has been placed");
+      navigate("/my-account/orders");
     } catch (err) {
-      console.log("object");
       console.log(err);
     }
   };

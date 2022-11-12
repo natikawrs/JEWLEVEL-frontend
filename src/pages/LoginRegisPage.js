@@ -47,7 +47,7 @@ function LoginRegisPage() {
     e.preventDefault();
     try {
       await login(inputLogin);
-      toast.success("/my-account/orders");
+      toast.success("success login");
       navigate("/my-account/orders");
     } catch (err) {
       toast.error(err.response.data.message);

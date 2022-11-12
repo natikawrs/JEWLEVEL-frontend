@@ -6,6 +6,7 @@ import { useCart } from "../contexts/CartContext";
 function ShoppingCart({ isOpenShoppingCart, closeShoppingCart }) {
   const { cartItems, deleteCartItem, totalPrice } = useCart();
   const navigate = useNavigate();
+
   // onClick={() => navigate(`/product/${item.id}`)}
   // const handleClickLink = () => {
   //   navigate(`/product/${cartItems?.Product?.id}`);
@@ -66,10 +67,15 @@ function ShoppingCart({ isOpenShoppingCart, closeShoppingCart }) {
                         {item?.Product.name}
                       </span>
                     </p>
-                    <p className="mt-1">
-                      {item?.quantity} x {item.Product?.price} ={" "}
-                      {item?.quantity * item.Product?.price}&nbsp;THB
-                    </p>
+                    <div className="flex mt-1">
+                      <p className="w-40">
+                        {item?.quantity} x {item.Product?.price}
+                      </p>
+
+                      <p className="">
+                        {item?.quantity * item.Product?.price}&nbsp;THB
+                      </p>
+                    </div>
                   </div>
                 </div>
               ))}

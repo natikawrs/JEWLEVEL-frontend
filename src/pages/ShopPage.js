@@ -5,7 +5,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { useEffect } from "react";
 
 function ShopPage() {
-  const { products, wishList, toggleWishList, fetchWishList } = useAuth();
+  const { products, wishList, toggleWishList } = useAuth();
   const navigate = useNavigate();
   const favAction = async (id) => {
     await toggleWishList(id);
@@ -31,7 +31,7 @@ function ShopPage() {
           </div>
 
           <div className="flex flex-wrap gap-5 w-[910px]">
-            {products.map((item) => (
+            {products?.map((item) => (
               <div className="mt-10 text-center">
                 <div className="">
                   <img
@@ -41,7 +41,7 @@ function ShopPage() {
                   <FontAwesomeIcon
                     icon={faHeart}
                     className={` ${
-                      wishListed.includes(item.id)
+                      wishListed?.includes(item.id)
                         ? "text-[#A7C7D7]"
                         : "text-white"
                     } scale-150 relative ml-60 mt-5 cursor-pointer`}
@@ -102,7 +102,7 @@ function ShopPage() {
             </div>
           </div>
           <div className="flex mt-5 gap-3">
-            <p className="text-[#A7C7D7] font-light text-sm">WRISTWEAR</p>
+            <p className="text-[#A7C7D7] font-light text-sm">BRACELET</p>
             <div className="rounded-full bg-[#A7C7D7] text-white w-5 h-5 text-xs text-center">
               11
             </div>

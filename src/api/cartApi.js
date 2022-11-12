@@ -7,7 +7,7 @@ export const getCartApi = () => axios.get("/cart/list");
 
 export const deleteCartItemApi = (cartId) => axios.delete(`/cart/${cartId}`);
 
-export const clearCartApi = () => axios.delete("users/cart");
+export const clearCartApi = () => axios.delete("cart/clear");
 
 export const updateCartApi = (cartItem) => axios.patch("users/cart/", cartItem);
 
