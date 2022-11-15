@@ -3,7 +3,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import proPic from "../images/profileImg.png";
 
-function Review() {
+function Review({ product }) {
   const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState(undefined);
   // const [review, setReview] = useState(0);
@@ -23,9 +23,9 @@ function Review() {
   return (
     <>
       <p className="border-b-2 mt-20 pb-5 text-[#A7C7D7] text-2xl">
-        REVIEW FOR ASPIDA MOISSANITE RING
+        REVIEW FOR {product.name}
       </p>
-      <p className="mt-5 text-[#A7C7D7] text-xl">REVIEWS (1)</p>
+      <p className="mt-5 text-[#A7C7D7] text-xl">REVIEWS (2)</p>
 
       <div className="flex w-[800px]  border-solid border-t-[2px] mt-5 pt-5 ">
         <img src={proPic} className="w-16 h-16 mr-5" />
@@ -34,7 +34,7 @@ function Review() {
             <span className="text-[#5699F5]">natikawatcharasaksil</span> –
             November 6, 2022
           </p>
-          <p className="mt-1">Nice and quality ring I ever had!! LOVE IT</p>
+          <p className="mt-1">Nice and quality jew I ever had!! LOVE IT</p>
         </div>
         <div className="flex ">
           <FontAwesomeIcon
@@ -66,7 +66,7 @@ function Review() {
             <span className="text-[#5699F5]">natikawatcharasaksil</span> –
             November 6, 2022
           </p>
-          <p className="mt-1">Nice and quality ring I ever had!! LOVE IT</p>
+          <p className="mt-1">The shipping is so FAST :)</p>
         </div>
         <div className="flex ">
           <FontAwesomeIcon

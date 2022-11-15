@@ -14,6 +14,7 @@ import Chatbox from "../components/Chatbox";
 import { useState } from "react";
 import ShoppingCart from "../components/ShoppingCart";
 import { useAuth } from "../contexts/AuthContext";
+import { useCart } from "../contexts/CartContext";
 
 function NavLayout() {
   const { user } = useAuth();
@@ -26,14 +27,16 @@ function NavLayout() {
     setShowChat(false);
   };
 
-  const [isOpenShoppingCart, setIsOpenShoppingCart] = useState(false);
-  const openShoppingCart = () => {
-    setIsOpenShoppingCart(true);
-  };
+  // const [isOpenShoppingCart, setIsOpenShoppingCart] = useState(false);
+  // const openShoppingCart = () => {
+  //   setIsOpenShoppingCart(true);
+  // };
 
-  const closeShoppingCart = () => {
-    setIsOpenShoppingCart(false);
-  };
+  // const closeShoppingCart = () => {
+  //   setIsOpenShoppingCart(false);
+  // };
+
+  const { openShoppingCart, closeShoppingCart, isOpenShoppingCart } = useCart();
 
   const navigate = useNavigate();
 
@@ -47,10 +50,16 @@ function NavLayout() {
             onClick={() => navigate("/")}
           />
           <div className="flex  justify-start gap-10 grow">
-            <Link to="/" className="text-[#A7C7D7] font-normal  my-auto">
+            <Link
+              to="/"
+              className="text-[#A7C7D7] font-normal  my-auto hover:opacity-50 hover:transition-all hover:duration-500"
+            >
               HOME
             </Link>
-            <Link className="text-[#A7C7D7] font-normal my-auto " to="/shop">
+            <Link
+              className="text-[#A7C7D7] font-normal my-auto hover:opacity-50 hover:transition-all hover:duration-500"
+              to="/shop"
+            >
               SHOP ALL
             </Link>
             {/* <Link
@@ -59,7 +68,10 @@ function NavLayout() {
             >
               LOGIN / REGISTER
             </Link> */}
-            <Link className="text-[#A7C7D7] font-normal my-auto" to="/contact">
+            <Link
+              className="text-[#A7C7D7] font-normal my-auto hover:opacity-50 hover:transition-all hover:duration-500"
+              to="/contact"
+            >
               CONTACT US
             </Link>
           </div>
@@ -67,26 +79,26 @@ function NavLayout() {
             <Link to={`${user ? "/my-account/orders" : "/authentication"}`}>
               <FontAwesomeIcon
                 icon={faUser}
-                className=" text-[#A7C7D7] scale-125"
+                className=" text-[#A7C7D7] scale-125 hover:opacity-50 hover:transition-all hover:duration-500"
               />
             </Link>
             <Link to="/wishlist">
               <FontAwesomeIcon
                 icon={faHeart}
-                className=" text-[#A7C7D7] scale-125"
+                className=" text-[#A7C7D7] scale-125 hover:opacity-50 hover:transition-all hover:duration-500"
               />
             </Link>
             <Link to="#">
               <FontAwesomeIcon
                 icon={faBagShopping}
-                className="  text-[#A7C7D7] scale-125"
+                className="  text-[#A7C7D7] scale-125 hover:opacity-50 hover:transition-all hover:duration-500"
                 onClick={openShoppingCart}
               />
             </Link>
             <Link onClick={openChat}>
               <FontAwesomeIcon
                 icon={faComment}
-                className="  text-[#A7C7D7] scale-125"
+                className="  text-[#A7C7D7] scale-125 hover:opacity-50 hover:transition-all hover:duration-500"
               />
             </Link>
           </div>

@@ -33,12 +33,13 @@ function ProductPage() {
 
   const wishListed = wishList?.map((product) => product?.productId);
 
-  const { addItemToCart } = useCart();
+  const { addItemToCart, openShoppingCart } = useCart();
 
   const [quantity, setQuantity] = useState(1);
 
   const handleAddTocart = () => {
     addItemToCart(productId, quantity);
+    openShoppingCart();
   };
 
   return (
@@ -58,7 +59,7 @@ function ProductPage() {
           <p className="text-[#A7C7D7] text-base mt-3">{product.description}</p>
           <div className="flex mt-10">
             <button
-              className="border-solid border-[#A7C7D7] text-[#A7C7D7] border-y-[3px] border-l-[3px] w-10 h-10"
+              className="border-solid border-[#A7C7D7] text-[#A7C7D7] border-y-[3px] border-l-[3px] w-10 h-10 hover:opacity-50 hover:transition-all hover:duration-500"
               onClick={() => setQuantity((prev) => (prev === 1 ? 1 : prev - 1))}
             >
               -
@@ -67,18 +68,18 @@ function ProductPage() {
               {quantity}
             </button>
             <button
-              className="border-solid border-[#A7C7D7] text-[#A7C7D7] border-y-[3px] border-r-[3px] w-10 h-10"
+              className="border-solid border-[#A7C7D7] text-[#A7C7D7] border-y-[3px] border-r-[3px] w-10 h-10 hover:opacity-50 hover:transition-all hover:duration-500"
               onClick={() => setQuantity((prev) => prev + 1)}
             >
               +
             </button>
             <button
-              className="border-solid border-[#A7C7D7] text-[#A7C7D7] text-xs border-[3px] w-36 h-10 ml-3"
+              className="border-solid border-[#A7C7D7] text-[#A7C7D7] text-xs border-[3px] w-36 h-10 ml-3 hover:opacity-50 hover:transition-all hover:duration-500"
               onClick={handleAddTocart}
             >
               ADD TO CART
             </button>
-            <button className="border-solid border-[#A7C7D7] text-[#A7C7D7] border-[3px] w-10 h-10 ml-3">
+            <button className="border-solid border-[#A7C7D7] text-[#A7C7D7] border-[3px] w-10 h-10 ml-3 hover:opacity-50 hover:transition-all hover:duration-500">
               <FontAwesomeIcon
                 icon={faHeart}
                 className={` ${
@@ -92,7 +93,7 @@ function ProductPage() {
           </div>
         </div>
       </div>
-      <Review />
+      <Review product={product} />
     </div>
   );
 }

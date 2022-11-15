@@ -13,12 +13,22 @@ function FooterLayout() {
             beautiful!
           </p>
           <div className="flex gap-10 mt-10">
-            <Link className="text-[#A7C7D7] font-normal border-b-2">Home</Link>
-            <Link className="text-[#A7C7D7] font-normal border-b-2">
+            <Link
+              className="text-[#A7C7D7] font-normal border-b-2 hover:opacity-50 hover:transition-all hover:duration-500"
+              to="/"
+            >
+              Home
+            </Link>
+            <Link
+              className="text-[#A7C7D7] font-normal border-b-2 hover:opacity-50 hover:transition-all hover:duration-500"
+              to="/contact"
+            >
               Contact us
             </Link>
-            <Link className="text-[#A7C7D7] font-normal border-b-2">FAQ</Link>
-            <Link className="text-[#A7C7D7] font-normal border-b-2">
+            <Link className="text-[#A7C7D7] font-normal border-b-2 hover:opacity-50 hover:transition-all hover:duration-500">
+              FAQ
+            </Link>
+            <Link className="text-[#A7C7D7] font-normal border-b-2 hover:opacity-50 hover:transition-all hover:duration-500">
               Policy
             </Link>
           </div>

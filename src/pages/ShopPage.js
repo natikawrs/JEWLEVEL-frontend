@@ -1,8 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faHeart } from "@fortawesome/free-solid-svg-icons";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import { useEffect } from "react";
+import { useState } from "react";
 
 function ShopPage() {
   const { products, wishList, toggleWishList } = useAuth();
@@ -11,8 +11,11 @@ function ShopPage() {
     await toggleWishList(id);
   };
 
+  // console.log(products);
   const wishListed = wishList?.map((product) => product?.productId);
 
+  const [searchCategory, setSearchCategory] = useState("");
+  console.log(searchCategory);
   return (
     <div className="px-16">
       <p className="text-[#5699F5] font-medium text-4xl mt-20">Shop</p>
@@ -31,84 +34,137 @@ function ShopPage() {
           </div>
 
           <div className="flex flex-wrap gap-5 w-[910px]">
-            {products?.map((item) => (
-              <div className="mt-10 text-center">
-                <div className="">
-                  <img
-                    src={item.image1}
-                    className="w-72 h-72  hover:opacity-50 hover:transition-all hover:duration-1000 cursor-pointer absolute"
-                  />
-                  <FontAwesomeIcon
-                    icon={faHeart}
-                    className={` ${
-                      wishListed?.includes(item.id)
-                        ? "text-[#A7C7D7]"
-                        : "text-white"
-                    } scale-150 relative ml-60 mt-5 cursor-pointer`}
-                    onClick={() => favAction(item.id)}
-                  />
-                </div>
-                <div className="mt-64 mx-auto w-72">
-                  <div
-                    className="text-[#A7C7D7] font-light text-sm cursor-pointer mx-auto"
-                    onClick={() => navigate(`/product/${item.id}`)}
-                  >
-                    {item.name}
+            {products
+              ?.filter((item) => {
+                if (searchCategory) {
+                  return (
+                    item.type.toLowerCase() ===
+                    (searchCategory.toLowerCase() || searchCategory)
+                  );
+                }
+                return item;
+              })
+              .map((item, index) => (
+                <div className="mt-10 text-center" key={index}>
+                  <div className="">
+                    <img
+                      src={item.image1}
+                      className="w-72 h-72  hover:opacity-50 hover:transition-all hover:duration-700 cursor-pointer absolute "
+                      onClick={() => navigate(`/product/${item.id}`)}
+                    />
+                    <FontAwesomeIcon
+                      icon={faHeart}
+                      className={` ${
+                        wishListed?.includes(item.id)
+                          ? "text-[#A7C7D7]"
+                          : "text-white"
+                      } scale-150 relative ml-60 mt-5 cursor-pointer`}
+                      onClick={() => favAction(item.id)}
+                    />
                   </div>
-                  <p className="text-[#A7C7D7] font-light text-sm mx-auto">
-                    {item.price} THB
-                  </p>
+                  <div className="mt-64 mx-auto w-72">
+                    <div
+                      className="text-[#A7C7D7] font-light text-sm cursor-pointer mx-auto hover:opacity-50 hover:transition-all hover:duration-500"
+                      onClick={() => navigate(`/product/${item.id}`)}
+                    >
+                      {item.name}
+                    </div>
+                    <p className="text-[#A7C7D7] font-light text-sm mx-auto">
+                      {item.price} THB
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
         <div className="">
           <p className="text-[#A7C7D7] text-2xl">CATEGORIES</p>
-          <div className="flex mt-5 gap-3">
-            <p className="text-[#A7C7D7] font-light text-sm">BEST SELLER</p>
+          <button
+            className="flex mt-5 gap-3 cursor-pointer"
+            onClick={(event) => {
+              setSearchCategory(event.target.value);
+            }}
+            value="bestseller"
+          >
+            <p className="text-[#A7C7D7] font-light text-sm hover:opacity-50 hover:transition-all hover:duration-500">
+              BEST SELLER
+            </p>
+            <div className="rounded-full bg-[#A7C7D7] text-white w-5 h-5 text-xs text-center">
+              11
+            </div>
+          </button>
+          <div className="flex mt-5 gap-3 cursor-pointer">
+            <p className="text-[#A7C7D7] font-light text-sm hover:opacity-50 hover:transition-all hover:duration-500">
+              NEW ARRIVAL
+            </p>
             <div className="rounded-full bg-[#A7C7D7] text-white w-5 h-5 text-xs text-center">
               11
             </div>
           </div>
-          <div className="flex mt-5 gap-3">
-            <p className="text-[#A7C7D7] font-light text-sm">NEW ARRIVAL</p>
+          <div className="flex mt-5 gap-3 cursor-pointer">
+            <p className="text-[#A7C7D7] font-light text-sm hover:opacity-50 hover:transition-all hover:duration-500">
+              GIFT IDEAS
+            </p>
             <div className="rounded-full bg-[#A7C7D7] text-white w-5 h-5 text-xs text-center">
               11
             </div>
           </div>
-          <div className="flex mt-5 gap-3">
-            <p className="text-[#A7C7D7] font-light text-sm">GIFT IDEAS</p>
+          <button
+            className="flex mt-5 gap-3 cursor-pointer"
+            onClick={() => {
+              setSearchCategory("earring");
+            }}
+          >
+            <p className="text-[#A7C7D7] font-light text-sm hover:opacity-50 hover:transition-all hover:duration-500">
+              EARRINGS
+            </p>
             <div className="rounded-full bg-[#A7C7D7] text-white w-5 h-5 text-xs text-center">
               11
             </div>
-          </div>
-          <div className="flex mt-5 gap-3">
-            <p className="text-[#A7C7D7] font-light text-sm">EARRINGS</p>
+          </button>
+          <button
+            className="flex mt-5 gap-3 cursor-pointer"
+            onClick={() => {
+              setSearchCategory("nacklace");
+            }}
+          >
+            <p className="text-[#A7C7D7] font-light text-sm hover:opacity-50 hover:transition-all hover:duration-500">
+              NECKLACE
+            </p>
             <div className="rounded-full bg-[#A7C7D7] text-white w-5 h-5 text-xs text-center">
               11
             </div>
-          </div>
-          <div className="flex mt-5 gap-3">
-            <p className="text-[#A7C7D7] font-light text-sm">NECKLACE</p>
+          </button>
+          <button
+            className="flex mt-5 gap-3 cursor-pointer"
+            onClick={() => {
+              setSearchCategory("ring");
+            }}
+          >
+            <p className="text-[#A7C7D7] font-light text-sm hover:opacity-50 hover:transition-all hover:duration-500">
+              RING
+            </p>
             <div className="rounded-full bg-[#A7C7D7] text-white w-5 h-5 text-xs text-center">
               11
             </div>
-          </div>
-          <div className="flex mt-5 gap-3">
-            <p className="text-[#A7C7D7] font-light text-sm">RINGS</p>
+          </button>
+          <button
+            className="flex mt-5 gap-3 cursor-pointer"
+            onClick={() => {
+              setSearchCategory("bracelet");
+            }}
+          >
+            <p className="text-[#A7C7D7] font-light text-sm hover:opacity-50 hover:transition-all hover:duration-500">
+              BRACELET
+            </p>
             <div className="rounded-full bg-[#A7C7D7] text-white w-5 h-5 text-xs text-center">
               11
             </div>
-          </div>
-          <div className="flex mt-5 gap-3">
-            <p className="text-[#A7C7D7] font-light text-sm">BRACELET</p>
-            <div className="rounded-full bg-[#A7C7D7] text-white w-5 h-5 text-xs text-center">
-              11
-            </div>
-          </div>
-          <div className="flex mt-5 gap-3">
-            <p className="text-[#A7C7D7] font-light text-sm">OTHERS</p>
+          </button>
+          <div className="flex mt-5 gap-3 cursor-pointer">
+            <p className="text-[#A7C7D7] font-light text-sm hover:opacity-50 hover:transition-all hover:duration-500">
+              OTHERS
+            </p>
             <div className="rounded-full bg-[#A7C7D7] text-white w-5 h-5 text-xs text-center">
               11
             </div>

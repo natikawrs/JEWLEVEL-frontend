@@ -29,11 +29,15 @@ function ContactUsPage() {
           </p>
         </div>
         <div className="w-[400px]">
-          <p className="text-[#A7C7D7] text-3xl text-center">CAREER</p>
-          <p className="text-[#A7C7D7] text-base mt-7">
-            Named by our Sparkler (Sparkle member), Aspida means shield reflects
-            your light; your heart will never turn dark. This 1 carat moissanite
-            adjustable ring is a great alternative to diamond.
+          <p className="text-[#A7C7D7] text-3xl text-center">PROJECT DETAILS</p>
+          <p className="text-[#A7C7D7] text-base mt-7 text-center">
+            Full stack project by NATIKA WATCHARASAKSIL
+          </p>
+          <p className="text-[#A7C7D7] text-base mt-5 text-center">
+            Front End: React / Tailwind
+          </p>
+          <p className="text-[#A7C7D7] text-base mt-5 text-center">
+            Back End: NodeJS / MySQL / Express
           </p>
         </div>
       </div>

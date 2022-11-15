@@ -19,7 +19,7 @@ function ProductPics({ product }) {
         navigation={true}
         thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiper2  w-[500px] h-[550px] overflow-hidden"
+        className="mySwiper2  w-[500px] h-[550px] overflow-hidden cursor-pointer"
       >
         <SwiperSlide>
           <img src={product.image1} />
@@ -50,19 +50,31 @@ function ProductPics({ product }) {
         freeMode={true}
         watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiper w-96 overflow-hidden"
+        className="mySwiper w-96 overflow-hidden cursor-pointer "
       >
         <SwiperSlide>
-          <img src={product.image1} />
+          <img
+            src={product.image1}
+            className="hover:opacity-50 hover:transition-all hover:duration-500"
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <img src={product.image2} />
+          <img
+            src={product.image2}
+            className="hover:opacity-50 hover:transition-all hover:duration-500"
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <img src={product.image3} />
+          <img
+            src={product.image3}
+            className="hover:opacity-50 hover:transition-all hover:duration-500"
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <img src={product.image4} />
+          <img
+            src={product.image4}
+            className="hover:opacity-50 hover:transition-all hover:duration-500"
+          />
         </SwiperSlide>
       </Swiper>
     </>

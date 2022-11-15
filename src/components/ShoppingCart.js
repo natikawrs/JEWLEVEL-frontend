@@ -3,8 +3,15 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../contexts/CartContext";
 
-function ShoppingCart({ isOpenShoppingCart, closeShoppingCart }) {
-  const { cartItems, deleteCartItem, totalPrice } = useCart();
+function ShoppingCart() {
+  const {
+    cartItems,
+    deleteCartItem,
+    totalPrice,
+    openShoppingCart,
+    closeShoppingCart,
+    isOpenShoppingCart
+  } = useCart();
   const navigate = useNavigate();
 
   // onClick={() => navigate(`/product/${item.id}`)}
@@ -12,7 +19,7 @@ function ShoppingCart({ isOpenShoppingCart, closeShoppingCart }) {
   //   navigate(`/product/${cartItems?.Product?.id}`);
   //   closeShoppingCart();
   // };
-
+  // console.log(cartItems);
   return (
     <>
       <>
@@ -27,29 +34,32 @@ function ShoppingCart({ isOpenShoppingCart, closeShoppingCart }) {
             className=" relative w-auto   max-w-3xl"
           >
             <div
-              className={` min-w-[400px] min-h-[730px] shadow-sm relative ${
+              className={` min-w-[400px] min-h-[750px] shadow-sm relative ${
                 isOpenShoppingCart ? "left-0" : "left-[700px]"
               } flex flex-col bg-white outline-none focus:outline-none px-10 transition-all duration-500`}
             >
               <div className="flex mt-5">
                 <p className="text-start text-[#A7C7D7] font-medium text-2xl w-96 ">
-                  SHOPPING CART ( 1 )
+                  SHOPPING CART ( {cartItems.length || 0} )
                 </p>
-                <button className="text-[30px] text-gray-400 ">
+                <button className="text-[30px] text-gray-400 hover:opacity-50 hover:transition-all hover:duration-500">
                   <FontAwesomeIcon icon={faXmark} onClick={closeShoppingCart} />
                 </button>
               </div>
 
-              {cartItems.map((item) => (
-                <div className="flex mt-5 border-t-2 pt-5 justify-evenly">
+              {cartItems.map((item, index) => (
+                <div
+                  className="flex mt-5 border-t-2 pt-5 justify-evenly"
+                  key={index}
+                >
                   <FontAwesomeIcon
                     icon={faXmark}
-                    className=" text-[#A7C7D7] scale-125 my-auto cursor-pointer"
+                    className=" text-[#A7C7D7] scale-125 my-auto cursor-pointer hover:opacity-50 hover:transition-all hover:duration-500"
                     onClick={() => deleteCartItem(item.id)}
                   />
                   <img
                     src={item.Product.image1}
-                    className="w-24 h-24 cursor-pointer"
+                    className="w-24 h-24 cursor-pointer hover:opacity-50 hover:transition-all hover:duration-500"
                     onClick={() => {
                       navigate(`/product/${item.Product.id}`);
                       closeShoppingCart();
@@ -58,7 +68,7 @@ function ShoppingCart({ isOpenShoppingCart, closeShoppingCart }) {
                   <div className="text-sm text-[#A7C7D7] w-48">
                     <p>
                       <span
-                        className="cursor-pointer"
+                        className="cursor-pointer hover:opacity-50 hover:transition-all hover:duration-500"
                         onClick={() => {
                           navigate(`/product/${item.Product.id}`);
                           closeShoppingCart();

@@ -70,7 +70,7 @@ function Account() {
       </div>
       <input
         className="w-[830px] h-[50px] rounded-[5px] pl-[20px] text-[#A7C7D7] border-solid border-[#A7C7D7] border-[1px] mt-3 text-sm mx-auto"
-        name="displayname"
+        name="displayName"
         type="text"
         value={input.displayName}
         onChange={handleChangeInput}
@@ -111,6 +111,7 @@ function Account() {
         className="w-[830px] h-[50px] rounded-[5px] pl-[20px] text-[#A7C7D7] border-solid border-[#A7C7D7] border-[1px] mt-3 text-sm mx-auto"
         type="password"
       /> */}
+
       <button className="mt-10 mb-20 bg-[#5699F5] text-white w-[830px] h-12 text-lg">
         SAVE CHANGES
       </button>

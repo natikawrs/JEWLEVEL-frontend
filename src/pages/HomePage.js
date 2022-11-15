@@ -35,7 +35,7 @@ function HomePage() {
           clickable: true
         }}
         modules={[Autoplay, Pagination]}
-        className="mySwiper"
+        className="mySwiper cursor-pointer"
       >
         <SwiperSlide>
           <div className="h-[600px] w-[1700px] overflow-hidden">
@@ -109,28 +109,49 @@ function HomePage() {
             clickable: true
           }}
           modules={[Pagination, Autoplay]}
-          className="mySwiper"
+          className="mySwiper cursor-pointer"
         >
           <SwiperSlide>
-            <img className="w-64 h-60" src={newarrival} />
+            <img
+              className="w-64 h-60"
+              src="https://i2.wp.com/deardiaryco.com/wp-content/uploads/2022/01/Nur-1.jpg?fit=2048%2C2048&ssl=1"
+            />
           </SwiperSlide>
           <SwiperSlide>
-            <img className="w-64 h-60" src={newarrival} />
+            <img
+              className="w-64 h-60"
+              src="https://i2.wp.com/deardiaryco.com/wp-content/uploads/2022/06/Cecilia-Necklace.png?fit=2515%2C2520&ssl=1"
+            />
           </SwiperSlide>
           <SwiperSlide>
-            <img className="w-64 h-60" src={newarrival} />
+            <img
+              className="w-64 h-60"
+              src="https://i0.wp.com/deardiaryco.com/wp-content/uploads/2022/04/Levan-Amethyst-Bracelet.jpg?fit=1448%2C1448&ssl=1"
+            />
           </SwiperSlide>
           <SwiperSlide>
-            <img className="w-64 h-60" src={newarrival} />
+            <img
+              className="w-64 h-60"
+              src="https://i2.wp.com/deardiaryco.com/wp-content/uploads/2022/08/Sparkle-Sterling-2.jpg?fit=1448%2C1448&ssl=1"
+            />
           </SwiperSlide>
           <SwiperSlide>
-            <img className="w-64 h-60" src={newarrival} />
+            <img
+              className="w-64 h-60"
+              src="https://i0.wp.com/deardiaryco.com/wp-content/uploads/2022/06/Ale-Huggies-1.png?fit=2017%2C2021&ssl=1"
+            />
           </SwiperSlide>
           <SwiperSlide>
-            <img className="w-64 h-60" src={newarrival} />
+            <img
+              className="w-64 h-60"
+              src="https://i0.wp.com/deardiaryco.com/wp-content/uploads/2022/06/Christmas-Night-Silver-2.png?fit=2316%2C2312&ssl=1"
+            />
           </SwiperSlide>
           <SwiperSlide>
-            <img className="w-64 h-60" src={newarrival} />
+            <img
+              className="w-64 h-60"
+              src="https://i1.wp.com/deardiaryco.com/wp-content/uploads/2021/12/DDV00023-Sq2-scaled.jpg?fit=2560%2C2560&ssl=1"
+            />
           </SwiperSlide>
         </Swiper>
       </div>

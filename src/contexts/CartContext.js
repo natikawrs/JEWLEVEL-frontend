@@ -22,7 +22,22 @@ function CartContextProvider({ children }) {
       }
     };
     fetchPriceCart();
-  }, [cartItems]);
+  }, []);
+
+  // const fetchPriceCart = async () => {
+  //   try {
+  //     if (getAccessToken()) {
+  //       await getPrice();
+  //       await getCart();
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchPriceCart();
+  // }, []);
 
   const getPrice = async () => {
     try {
@@ -35,16 +50,14 @@ function CartContextProvider({ children }) {
   // console.log(cartItems);
   const addItemToCart = async (productId, quantity) => {
     try {
-      // console.log(productId);
-      // console.log(quantity);
-      // cartItems.forEach((item) => {
-      //   if (item.productId === productId) {
-      //     //   console.log(item.productId);
-      //     throw new Error();
-      //   }
-      // });
+      const filteredCart = cartItems.filter(
+        (item) => item.Product.id != productId
+      );
+
       const res = await cartService.createCartApi(productId, quantity);
-      setCartItems((prev) => [...prev, res.data.JoinCartData]);
+
+      setCartItems([res.data.JoinCartData, ...filteredCart]);
+      getPrice();
     } catch (err) {
       toast.error("Adding Error");
     }
@@ -53,7 +66,6 @@ function CartContextProvider({ children }) {
   const getCart = async () => {
     const res = await cartService.getCartApi();
     if (res.data.JoinCartData) {
-      // console.log(res.data.JoinCartData);
       setCartItems([...res.data.JoinCartData]);
     }
   };
@@ -67,13 +79,14 @@ function CartContextProvider({ children }) {
     await cartService.updateCartApi(cartItem);
   };
 
-  // useEffect(() => {
-  //   try {
-  //     getCart();
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }, []);
+  const [isOpenShoppingCart, setIsOpenShoppingCart] = useState(false);
+  const openShoppingCart = () => {
+    setIsOpenShoppingCart(true);
+  };
+
+  const closeShoppingCart = () => {
+    setIsOpenShoppingCart(false);
+  };
 
   return (
     <CartContext.Provider
@@ -85,7 +98,10 @@ function CartContextProvider({ children }) {
         deleteCartItem,
         updateCart,
         // getPrice,
-        totalPrice
+        totalPrice,
+        openShoppingCart,
+        closeShoppingCart,
+        isOpenShoppingCart
       }}
     >
       {children}
